@@ -10,7 +10,9 @@ module.exports = {
   async indexForOng(req, res) {
     const ong_id = req.headers.authorization;
 
-    const incidents = await connection('incidents').select('*').where('ong_id', ong_id);
+    const incidents = await connection('incidents')
+      .select('*')
+      .where('ong_id', ong_id);
 
     return res.json(incidents);
   },
@@ -27,5 +29,23 @@ module.exports = {
     });
 
     return res.json({ id });
+  },
+
+  async delete(req, res) {
+    const { id } = req.params;
+    const ong_id = req.headers.authorization;
+
+    const incident = await connection('incidents')
+      .select('ong_id')
+      .where('id', id)
+      .first();
+
+    if (incident.ong_id !== ong_id) {
+      return res.status(401).json({ error: 'Operation not permitted.' });
+    }
+
+    await connection('incidents').delete().where('id', id);
+
+    return res.status(204).send();
   }
 };
