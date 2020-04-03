@@ -1,24 +1,8 @@
-import React, { useState } from 'react';
-import Header from './Header';
+import React from 'react';
+import Logon from './pages/Logon';
 
 function App() {
-  let [counter, setCounter] = useState(0);
-
-  function increment() {
-    counter++;
-  }
-
-  function incrementState() {
-    setCounter(++counter);
-  }
-
-  return (
-    <div>
-      <Header>Contador: {counter}</Header>
-      <button onClick={increment}>Incrementar</button>
-      <button onClick={incrementState}>Incrementar com state</button>
-    </div>
-  );
+  return <Logon />;
 }
 
 export default App;
