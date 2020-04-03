@@ -11,7 +11,15 @@ module.exports = {
       .first();
 
     const incidents = await connection('incidents')
-      .select('*')
+      .select([
+        'incidents.*', 
+        'ongs.name',
+        'ongs.email',
+        'ongs.whatsapp',
+        'ongs.city',
+        'ongs.uf'
+      ])
+      .join('ongs', 'ongs.id', '=', 'incidents.ong_id')
       .limit(PAGE_LIMIT)
       .offset((page - 1) * PAGE_LIMIT);
 
