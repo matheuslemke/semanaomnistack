@@ -7,16 +7,6 @@ module.exports = {
     return res.json(incidents);
   },
 
-  async indexForOng(req, res) {
-    const ong_id = req.headers.authorization;
-
-    const incidents = await connection('incidents')
-      .select('*')
-      .where('ong_id', ong_id);
-
-    return res.json(incidents);
-  },
-
   async create(req, res) {
     const { title, description, value } = req.body;
     const ong_id = req.headers.authorization;
